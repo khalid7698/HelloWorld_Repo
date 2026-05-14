@@ -2,6 +2,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t hello-java-app .'
@@ -23,7 +24,7 @@ pipeline {
         stage('Deploy on Prod') {
             steps {
                 sh '''
-                ssh USERNAME@M3-IP "
+                ssh m1@192.168.10.25 "
                 docker load < ~/hello-prod/hello-java-app.tar &&
                 docker stop hello-java-app || true &&
                 docker rm hello-java-app || true &&
